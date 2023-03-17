@@ -1,0 +1,13 @@
+{
+  "exclude": ["src/**/*.spec.ts", "node_modules", "dist", "src/test"],
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "target": "es2016",
+    "jsx": "react",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "outDir": "dist"
+  }
+}
