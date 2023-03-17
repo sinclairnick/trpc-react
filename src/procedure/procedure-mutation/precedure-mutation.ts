@@ -1,10 +1,9 @@
-import { AnyMutationProcedure } from "@trpc/server";
 import { TRPCClient } from "../../types";
 import {
   UseTRPCProcedureMutationHelpers,
   UseTRPCProcedureMutation,
 } from "./procedure-mutation.types";
-import * as RQ from "@tanstack/react-query";
+import { useMutation as _useMutation } from "@tanstack/react-query";
 import { getQueryKey } from "../../util/key.util";
 
 export const getProcedureMutationHelpers = (args: {
@@ -18,7 +17,7 @@ export const getProcedureMutationHelpers = (args: {
   const useMutation: UseTRPCProcedureMutation<any, any> = (opts) => {
     const key = getQueryKey(path, undefined);
 
-    return RQ.useMutation({
+    return _useMutation({
       mutationKey: key,
       mutationFn: $mutate,
       ...opts,

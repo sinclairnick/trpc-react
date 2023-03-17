@@ -1,4 +1,3 @@
-import type { AnyQueryProcedure } from "@trpc/server";
 import { useState } from "react";
 import type {
   UseTRPCProcedureQueryHelpers,
@@ -6,7 +5,11 @@ import type {
   UseTRPCProcedureInfiniteQuery,
   UseTRPCProcedureLazyQuery,
 } from "./procedure-query.types";
-import * as RQ from "@tanstack/react-query";
+import {
+  useQuery as _useQuery,
+  useInfiniteQuery as _useInfiniteQuery,
+  useQueryClient as _useQueryClient,
+} from "@tanstack/react-query";
 import { TRPCClient } from "../../types";
 import { getCoalescedKey, getInfiniteKey } from "../../util/key.util";
 
@@ -21,7 +24,7 @@ export const getProcedureQueryHelpers = (args: {
   const useQuery: UseTRPCProcedureQuery<any, any> = (input, opts) => {
     const key = getCoalescedKey({ path, input, opts });
 
-    return RQ.useQuery({
+    return _useQuery({
       queryKey: key,
       queryFn: () => $query(input),
       ...opts,
@@ -31,13 +34,13 @@ export const getProcedureQueryHelpers = (args: {
   const useInfiniteQuery: UseTRPCProcedureInfiniteQuery<any, any> = (opts) => {
     const key = getInfiniteKey(path);
 
-    return RQ.useInfiniteQuery(key, (input) => client.query(path, input), opts);
+    return _useInfiniteQuery(key, (input) => client.query(path, input), opts);
   };
 
   // Should this use a different key to useQuery?
   const useLazyQuery: UseTRPCProcedureLazyQuery<any, any> = (opts) => {
     const [input, setInput] = useState<unknown | undefined>();
-    const queryClient = RQ.useQueryClient();
+    const queryClient = _useQueryClient();
     const key = getCoalescedKey({ path, input, opts });
 
     const isDisabled = opts?.enabled != null && !opts.enabled;

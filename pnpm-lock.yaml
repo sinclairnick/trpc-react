@@ -2,13 +2,14 @@ lockfileVersion: 5.4
 
 specifiers:
   '@changesets/cli': ^2.26.0
-  '@tanstack/react-query': ^4.15.1
+  '@tanstack/react-query': ^4.0.0
   '@testing-library/react-hooks': ^8.0.1
-  '@trpc/client': ^10.16.0
-  '@trpc/server': ^10.16.0
-  '@types/react': ^18.0.28
-  react: ^18.2.0
-  react-test-renderer: ^18.2.0
+  '@trpc/client': ^10.0.0
+  '@trpc/server': ^10.0.0
+  '@types/react': ^18.0.0
+  react: ^18.0.0
+  react-dom: ^18.0.0
+  react-test-renderer: ^18.0.0
   tsup: ^6.6.3
   typescript: ^4.9.5
   vitest: ^0.29.3
@@ -16,12 +17,13 @@ specifiers:
 
 devDependencies:
   '@changesets/cli': 2.26.0
-  '@tanstack/react-query': 4.26.1_react@18.2.0
-  '@testing-library/react-hooks': 8.0.1_jxcfcxboev47gd34uumzpegmmq
+  '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
+  '@testing-library/react-hooks': 8.0.1_4dieuo5phzh2ncaz6cfjnl37cm
   '@trpc/client': 10.16.0_@trpc+server@10.16.0
   '@trpc/server': 10.16.0
   '@types/react': 18.0.28
   react: 18.2.0
+  react-dom: 18.2.0_react@18.2.0
   react-test-renderer: 18.2.0_react@18.2.0
   tsup: 6.6.3_typescript@4.9.5
   typescript: 4.9.5
@@ -485,7 +487,7 @@ packages:
     resolution: {integrity: sha512-Zrx2pVQUP4ndnsu6+K/m8zerXSVY8QM+YSbxA1/jbBY21GeCd5oKfYl92oXPK0hPEUtoNuunIdiq0ZMqLos+Zg==}
     dev: true
 
-  /@tanstack/react-query/4.26.1_react@18.2.0:
+  /@tanstack/react-query/4.26.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-i3dnz4TOARGIXrXQ5P7S25Zfi4noii/bxhcwPurh2nrf5EUCcAt/95TB2HSmMweUBx206yIMWUMEQ7ptd6zwDg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -499,10 +501,11 @@ packages:
     dependencies:
       '@tanstack/query-core': 4.26.1
       react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: true
 
-  /@testing-library/react-hooks/8.0.1_jxcfcxboev47gd34uumzpegmmq:
+  /@testing-library/react-hooks/8.0.1_4dieuo5phzh2ncaz6cfjnl37cm:
     resolution: {integrity: sha512-Aqhl2IVmLt8IovEVarNDFuJDVWVvhnr9/GCU6UUnrYXwgDFF9h2L2o2P9KBni1AST5sT6riAyoukFLyjQUgD/g==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -521,6 +524,7 @@ packages:
       '@babel/runtime': 7.21.0
       '@types/react': 18.0.28
       react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
       react-error-boundary: 3.1.4_react@18.2.0
       react-test-renderer: 18.2.0_react@18.2.0
     dev: true
@@ -2106,6 +2110,16 @@ packages:
   /quick-lru/4.0.1:
     resolution: {integrity: sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==}
     engines: {node: '>=8'}
+    dev: true
+
+  /react-dom/18.2.0_react@18.2.0:
+    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      loose-envify: 1.4.0
+      react: 18.2.0
+      scheduler: 0.23.0
     dev: true
 
   /react-error-boundary/3.1.4_react@18.2.0:
