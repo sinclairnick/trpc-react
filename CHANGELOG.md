@@ -1,5 +1,11 @@
 # trpc-react
 
+## 0.1.0-beta.4
+
+### Patch Changes
+
+- Add root helpers to proxy resolution
+
 ## 0.1.0-beta.3
 
 ### Patch Changes

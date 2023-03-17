@@ -7,4 +7,4 @@ export type TRPCRootHelpers = {
 
 export type RootHelperKey = keyof TRPCRootHelpers;
 
-export const RootHelperKeys: RootHelperKey[] = [];
+export const RootHelperKeys: RootHelperKey[] = ["$dehydrate", "$prehydrate"];
