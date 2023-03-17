@@ -18,7 +18,7 @@ export type UseTRPCProcedureQuery<TInput, TOutput> = (
 export type UseTRPCProcedureInfiniteQuery<TInput, TOutput> = (
   getInput: (ctx: QueryFunctionContext<QueryKey>) => TInput,
   options?: Omit<
-    UseInfiniteQueryOptions<TInput, TRPCError, TOutput, any, any>,
+    UseInfiniteQueryOptions<TOutput, TRPCError>,
     "queryKey" | "queryFn"
   >
 ) => UseInfiniteQueryResult<TOutput, TRPCError>;
