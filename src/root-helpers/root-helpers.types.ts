@@ -6,7 +6,7 @@ export type DehydratedTrpcState = {
 };
 
 export type TRPCRootHelpers = {
-  $dehydrate: (client: QueryClient) => DehydratedTrpcState;
+  $dehydrate: (client: QueryClient) => DehydratedTrpcState | undefined;
   $prehydrate: (
     dehydratedState: DehydratedState | DehydratedTrpcState
   ) => DehydratedState;
