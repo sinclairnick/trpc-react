@@ -1,6 +1,6 @@
 {
   "name": "trpc-react",
-  "version": "0.1.0-beta.4",
+  "version": "0.1.0-beta.5",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -41,6 +41,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-test-renderer": "^18.0.0",
+    "superjson": "^1.12.2",
     "tsup": "^6.6.3",
     "typescript": "^4.9.5",
     "vitest": "^0.29.3",

@@ -1,5 +1,11 @@
 # trpc-react
 
+## 0.1.0-beta.5
+
+### Patch Changes
+
+- Fix bug with conditional serialization
+
 ## 0.1.0-beta.4
 
 ### Patch Changes

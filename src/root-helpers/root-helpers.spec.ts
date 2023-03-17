@@ -1,6 +1,7 @@
 import { getRootHelpers } from "./root-helpers";
 import { describe, expect, it, vi } from "vitest";
 import { QueryClient } from "@tanstack/react-query";
+import superjson from "superjson";
 
 describe("Root helpers", () => {
   it("Should serialize using provided serializer", () => {
@@ -60,5 +61,25 @@ describe("Root helpers", () => {
     } as any);
 
     expect(deserialize).not.toHaveBeenCalled();
+  });
+
+  it("Works with a real transformer", () => {
+    const helpers = getRootHelpers({
+      client: {
+        runtime: {
+          transformer: superjson,
+        },
+      } as any,
+    });
+
+    const queryClient = new QueryClient();
+
+    const dehydrated = helpers.$dehydrate(queryClient);
+    const prehydrated = helpers.$prehydrate(dehydrated);
+    console.log(dehydrated, prehydrated);
+
+    expect(dehydrated.__TRPC__).toBe(true);
+    expect(prehydrated.mutations).toEqual([]);
+    expect(prehydrated.queries).toEqual([]);
   });
 });

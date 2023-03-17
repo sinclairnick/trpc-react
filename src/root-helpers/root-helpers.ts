@@ -11,23 +11,22 @@ export const getRootHelpers = (args: {
 
   const $dehydrate: TRPCRootHelpers["$dehydrate"] = (queryClient) => {
     const dehydratedState = _dehydrate(queryClient);
-    return client.runtime.transformer.serialize({
+
+    return {
       [TRPC_KEY]: true,
-      ...dehydratedState,
-    });
+      data: client.runtime.transformer.serialize({
+        ...dehydratedState,
+      }),
+    };
   };
 
   const $prehydrate: TRPCRootHelpers["$prehydrate"] = (data) => {
-    const state = data as any;
-    const isTrpcSerialized =
-      typeof data === "object" && TRPC_KEY in data && data[TRPC_KEY] === true;
-
-    if (isTrpcSerialized) {
-      return client.runtime.transformer.deserialize(state);
+    if (TRPC_KEY in data) {
+      return client.runtime.transformer.deserialize(data.data);
     }
 
     // If TRPC didn't serialize it, don't alter dehydrated state
-    return state;
+    return data;
   };
 
   return { $dehydrate, $prehydrate };
