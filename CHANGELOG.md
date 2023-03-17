@@ -1,5 +1,11 @@
 # trpc-react
 
+## 0.1.0-beta.3
+
+### Patch Changes
+
+- Only deserialze if TRPC has serialized
+
 ## 0.1.0-beta.2
 
 ### Minor Changes
