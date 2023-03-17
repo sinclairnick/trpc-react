@@ -1,15 +1,18 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createTestRouter } from "./test/create-router";
+import { createTestRouter } from "../test/create-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FC, PropsWithChildren } from "react";
 import React from "react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { createTRPCTest } from "./test/create-trpc";
+import { createTRPCTest } from "../test/create-trpc";
+import { createTRPCReactServer } from "./server/create-trpc-react-server";
 
 describe("Create TRPC React", () => {
   const appRouter = createTestRouter();
   type AppRouter = typeof appRouter;
   let wrapper: FC<PropsWithChildren>;
+
+  // createTRPCReactServer<AppRouter>({}).bar.someMutation.
 
   beforeEach(() => {
     const queryClient = new QueryClient();

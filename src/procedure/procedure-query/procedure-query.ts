@@ -10,16 +10,17 @@ import {
   useInfiniteQuery as _useInfiniteQuery,
   useQueryClient as _useQueryClient,
 } from "@tanstack/react-query";
-import { TRPCClient } from "../../types";
+import { TRPCClientLike } from "../../types";
 import { getCoalescedKey, getInfiniteKey } from "../../util/key.util";
 
 export const getProcedureQueryHelpers = (args: {
   path: string;
-  client: TRPCClient;
+  client: TRPCClientLike;
 }): UseTRPCProcedureQueryHelpers<any, any> => {
   const { client, path } = args;
 
   const $query = (input: any) => client.query(path, input);
+  const $infiniteKey = () => getInfiniteKey(path);
 
   const useQuery: UseTRPCProcedureQuery<any, any> = (input, opts) => {
     const key = getCoalescedKey({ path, input, opts });
@@ -31,10 +32,20 @@ export const getProcedureQueryHelpers = (args: {
     });
   };
 
-  const useInfiniteQuery: UseTRPCProcedureInfiniteQuery<any, any> = (opts) => {
-    const key = getInfiniteKey(path);
+  const useInfiniteQuery: UseTRPCProcedureInfiniteQuery<any, any> = (
+    getInput,
+    opts
+  ) => {
+    const key = $infiniteKey();
 
-    return _useInfiniteQuery(key, (input) => client.query(path, input), opts);
+    return _useInfiniteQuery({
+      ...opts,
+      queryKey: key,
+      queryFn: (ctx) => {
+        const input = getInput(ctx);
+        return $query(input);
+      },
+    });
   };
 
   // Should this use a different key to useQuery?
@@ -54,7 +65,7 @@ export const getProcedureQueryHelpers = (args: {
       setInput(input);
       return queryClient.fetchQuery({
         queryKey: key,
-        queryFn: () => client.query(path, input),
+        queryFn: () => $query(input),
         ...opts,
       });
     };
@@ -67,5 +78,6 @@ export const getProcedureQueryHelpers = (args: {
     useInfiniteQuery,
     useLazyQuery,
     $query,
+    $infiniteKey,
   };
 };

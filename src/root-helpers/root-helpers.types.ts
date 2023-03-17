@@ -1,9 +1,8 @@
 import { DehydratedState, QueryClient } from "@tanstack/react-query";
 
 export type TRPCRootHelpers = {
-  // TODO: Add root helpers here
-  useQueries: {};
-  dehydrate: (client: QueryClient) => DehydratedState;
+  $dehydrate: (client: QueryClient) => DehydratedState;
+  $prehydrate: (dehydratedState: DehydratedState) => DehydratedState;
 };
 
 export type RootHelperKey = keyof TRPCRootHelpers;

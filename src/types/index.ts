@@ -23,4 +23,7 @@ export type CreateTRPCReactInner<T> = T extends AnyRouter
 export type CreateTRPCReactOptions<TRouter extends AnyRouter> = {
   config: CreateTRPCClientOptions<TRouter>;
 };
-export type TRPCClient = TRPCUntypedClient<AnyRouter>;
+export type TRPCClientLike = Pick<
+  TRPCUntypedClient<AnyRouter>,
+  "mutation" | "query" | "subscription" | "runtime"
+>;

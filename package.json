@@ -1,6 +1,6 @@
 {
   "name": "trpc-react",
-  "version": "0.0.1-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,8 @@
   "scripts": {
     "test": "vitest",
     "build": "tsup-node",
-    "dev": "tsup-node --watch"
+    "dev": "tsup-node --watch",
+    "check": "tsc --noEmit"
   },
   "keywords": [],
   "author": {

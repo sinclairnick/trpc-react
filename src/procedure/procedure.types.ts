@@ -7,12 +7,14 @@ import {
 } from "@trpc/server";
 import { UseTRPCProcedureCommonHelpers } from "./procedure-common/preocedure-common.types";
 import { UseTRPCProcedureMutationHelpers } from "./procedure-mutation/procedure-mutation.types";
+import { QueryClientProcedureMethods } from "./procedure-query-client/procedure-query-client.types";
 import { UseTRPCProcedureQueryHelpers } from "./procedure-query/procedure-query.types";
 import { UseTRPCProcedureSubscriptionHelpers } from "./procedure-subscription/procedure-subscription.types";
 
 export type UseTRPCProcedureHook<TProc, TInput, TOutput> =
   TProc extends AnyQueryProcedure
-    ? UseTRPCProcedureQueryHelpers<TInput, TOutput>
+    ? UseTRPCProcedureQueryHelpers<TInput, TOutput> &
+        QueryClientProcedureMethods<TInput, TOutput>
     : TProc extends AnyMutationProcedure
     ? UseTRPCProcedureMutationHelpers<TInput, TOutput>
     : never;
@@ -35,7 +37,7 @@ export type UseTRPCProcedureQueryKeys = keyof UseTRPCProcedureQueryHelpers<
 export type UseTRPCProcedureMutationKeys =
   keyof UseTRPCProcedureMutationHelpers<any, any>;
 export type UseTRPCProcedureSubscriptionKeys =
-  keyof UseTRPCProcedureSubscriptionHelpers<any, any, any>;
+  keyof UseTRPCProcedureSubscriptionHelpers<any, any>;
 export type UseTRPCProcedureCommonKeys = keyof UseTRPCProcedureCommonHelpers<
   any,
   any,
@@ -47,28 +49,3 @@ export type UseTRPCProcedureKey =
   | UseTRPCProcedureMutationKeys
   | UseTRPCProcedureSubscriptionKeys
   | UseTRPCProcedureCommonKeys;
-
-export const ProcedureQueryKeys: Set<UseTRPCProcedureQueryKeys> = new Set([
-  "useInfiniteQuery",
-  "useLazyQuery",
-  "useQuery",
-  "$query",
-]);
-
-export const ProcedureMutationKeys: Set<UseTRPCProcedureMutationKeys> = new Set(
-  ["useMutation", "$mutate"]
-);
-
-export const ProcedureSubscriptionKeys: Set<UseTRPCProcedureSubscriptionKeys> =
-  new Set(["useSubscription", "$subscribe"]);
-
-export const ProcedureCommonKeys: Set<UseTRPCProcedureCommonKeys> = new Set([
-  "$key",
-]);
-
-export const ProcedureKeys: UseTRPCProcedureKey[] = [
-  ...ProcedureQueryKeys,
-  ...ProcedureMutationKeys,
-  ...ProcedureSubscriptionKeys,
-  ...ProcedureCommonKeys,
-];

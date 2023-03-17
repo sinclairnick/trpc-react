@@ -1,14 +1,24 @@
-import { TRPCClient } from "../types";
+import { TRPCClientLike } from "../types";
 import { getProcedureCommonHelpers } from "./procedure-common/procedure-common";
 import { getProcedureMutationHelpers } from "./procedure-mutation/precedure-mutation";
+import { getProcedureQueryClientHelpers } from "./procedure-query-client/procedure-query-client";
 import { getProcedureQueryHelpers } from "./procedure-query/procedure-query";
+import { getProcedureSubscriptionHelpers } from "./procedure-subscription/procedure-subscription";
 
-const getProcedureHelpers = (args: { path: string; client: TRPCClient }) => {
-  return {
+const getProcedureHelpers = (args: {
+  path: string;
+  client: TRPCClientLike;
+}) => {
+  const proc = {
     ...getProcedureQueryHelpers(args),
     ...getProcedureMutationHelpers(args),
     ...getProcedureCommonHelpers(args),
-    // TODO: Add subscriptions
+    ...getProcedureSubscriptionHelpers(args),
+  };
+
+  return {
+    ...proc,
+    ...getProcedureQueryClientHelpers(proc),
   };
 };
 
@@ -18,7 +28,7 @@ const getProcedureHelpers = (args: { path: string; client: TRPCClient }) => {
 export const getProcedureHelpersForPath = (args: {
   trpcPath: string;
   method: string;
-  client: TRPCClient;
+  client: TRPCClientLike;
 }): ((...args: any[]) => any) => {
   const { client, method, trpcPath } = args;
 

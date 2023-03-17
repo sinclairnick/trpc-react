@@ -24,6 +24,6 @@ export type {
   UseTRPCProcedureQueryHelpers,
 } from "./procedure-query/procedure-query.types";
 export type {
-  UseTRPCProcedureSubscription,
+  UseTRPCProcedureSubscriptionQuery as UseTRPCProcedureSubscription,
   UseTRPCProcedureSubscriptionHelpers,
 } from "./procedure-subscription/procedure-subscription.types";

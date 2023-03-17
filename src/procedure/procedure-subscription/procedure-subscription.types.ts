@@ -1,12 +1,32 @@
 import { UseQueryResult } from "@tanstack/react-query";
-import { TRPCError } from "@trpc/server";
+import { TRPCClientError } from "@trpc/client";
+import { TRPCSubscriptionObserver } from "@trpc/client/dist/internals/TRPCUntypedClient";
+import { AnyRouter, TRPCError } from "@trpc/server";
+import { Unsubscribable } from "@trpc/server/observable";
 
-export type UseTRPCProcedureSubscription<TProc, TInput, TOutput> = (
+export type TRPCSubscriptionOptions = {
+  enabled?: boolean;
+} & Partial<TRPCSubscriptionObserver<any, TRPCClientError<AnyRouter>>>;
+
+export type UseTRPCProcedureSubscription<TInput> = (
   input: TInput,
-  opts: any // TODO: Fix Options type
+  opts?: TRPCSubscriptionOptions
+) => void;
+export type UseTRPCProcedureSubscriptionQuery<TInput, TOutput> = (
+  input: TInput,
+  opts?: TRPCSubscriptionOptions
 ) => UseQueryResult<TOutput, TRPCError>;
 
-export type UseTRPCProcedureSubscriptionHelpers<TProc, TInput, TOutput> = {
-  useSubscription: UseTRPCProcedureSubscription<TProc, TInput, TOutput>;
-  $subscribe: (input: TInput, opts: any) => unknown;
+export type TRPCSubscribeFn<TInput> = (
+  input: TInput,
+  opts?: TRPCSubscriptionOptions
+) => Unsubscribable;
+
+export type UseTRPCProcedureSubscriptionHelpers<TInput, TOutput> = {
+  useSubscription: UseTRPCProcedureSubscription<TInput>;
+  useSubscriptionQuery: UseTRPCProcedureSubscriptionQuery<TInput, TOutput>;
+  $subscription: (
+    input: TInput,
+    opts?: TRPCSubscriptionOptions
+  ) => Unsubscribable;
 };

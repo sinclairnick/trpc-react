@@ -1,4 +1,4 @@
-import { TRPCClient } from "../../types";
+import { TRPCClientLike } from "../../types";
 import {
   UseTRPCProcedureMutationHelpers,
   UseTRPCProcedureMutation,
@@ -8,7 +8,7 @@ import { getQueryKey } from "../../util/key.util";
 
 export const getProcedureMutationHelpers = (args: {
   path: string;
-  client: TRPCClient;
+  client: TRPCClientLike;
 }): UseTRPCProcedureMutationHelpers<any, any> => {
   const { client, path } = args;
 
