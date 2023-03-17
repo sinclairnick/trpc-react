@@ -1,1 +1,5 @@
-export type { RootHelperKey, TRPCRootHelpers } from "./root-helpers.types";
+export type {
+  RootHelperKey,
+  TRPCRootHelpers,
+  DehydratedTrpcState,
+} from "./root-helpers.types";
