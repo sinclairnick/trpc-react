@@ -20,6 +20,6 @@ export const getCoalescedKey = (args: {
   return getQueryKey(args.path, args.input);
 };
 
-export const getInfiniteKey = (path: string): QueryKey => {
-  return [`${path}.infinite`];
+export const getInfiniteKey = (path: string, input: any): QueryKey => {
+  return [`${path}.infinite`, input];
 };

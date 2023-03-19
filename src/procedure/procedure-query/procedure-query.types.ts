@@ -3,7 +3,6 @@ import type {
   UseQueryResult,
   UseInfiniteQueryOptions,
   UseInfiniteQueryResult,
-  QueryClient,
   QueryFunctionContext,
   QueryKey,
 } from "@tanstack/react-query";
@@ -16,7 +15,11 @@ export type UseTRPCProcedureQuery<TInput, TOutput> = (
 ) => UseQueryResult<TOutput, TRPCError>;
 
 export type UseTRPCProcedureInfiniteQuery<TInput, TOutput> = (
-  getInput: (ctx: QueryFunctionContext<QueryKey>) => TInput,
+  input: TInput,
+  getInput: (
+    ctx: QueryFunctionContext<QueryKey>,
+    originalInput: TInput
+  ) => TInput,
   options?: Omit<
     UseInfiniteQueryOptions<TOutput, TRPCError>,
     "queryKey" | "queryFn"
@@ -39,5 +42,5 @@ export type UseTRPCProcedureQueryHelpers<TInput, TOutput> = {
    * Fetches and returns the data, without affecting the React Query cache.
    */
   $query: TRPCProcedureFetcherFn<AnyQueryProcedure, TInput, TOutput>;
-  $infiniteKey: () => QueryKey;
+  $infiniteKey: (input: TInput) => QueryKey;
 };

@@ -20,7 +20,7 @@ export const getProcedureQueryHelpers = (args: {
   const { client, path } = args;
 
   const $query = (input: any) => client.query(path, input);
-  const $infiniteKey = () => getInfiniteKey(path);
+  const $infiniteKey = (input: any) => getInfiniteKey(path, input);
 
   const useQuery: UseTRPCProcedureQuery<any, any> = (input, opts) => {
     const key = getCoalescedKey({ path, input, opts });
@@ -33,16 +33,17 @@ export const getProcedureQueryHelpers = (args: {
   };
 
   const useInfiniteQuery: UseTRPCProcedureInfiniteQuery<any, any> = (
+    originalInput,
     getInput,
     opts
   ) => {
-    const key = $infiniteKey();
+    const key = $infiniteKey(originalInput);
 
     return _useInfiniteQuery({
       ...opts,
       queryKey: key,
       queryFn: (ctx) => {
-        const input = getInput(ctx);
+        const input = getInput(ctx, originalInput);
         return $query(input);
       },
     });

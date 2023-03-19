@@ -1,8 +1,6 @@
 import {
   InfiniteData,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   UseInfiniteQueryOptions,
 } from "@tanstack/react-query";
 import { TRPCError } from "@trpc/server";
@@ -19,7 +17,7 @@ export type TRPCProcedureFetchFn<TInput, TOutput> = (
 
 export type TRPCProcedureFetchInfiniteQuery<TInput, TOutput> = (
   queryClient: QueryClient,
-  getInput: (ctx: QueryFunctionContext<QueryKey>) => TInput,
+  initialInput: TInput,
   options?: Omit<
     UseInfiniteQueryOptions<TInput, TRPCError, TOutput, any, any>,
     "queryKey" | "queryFn"
@@ -28,7 +26,7 @@ export type TRPCProcedureFetchInfiniteQuery<TInput, TOutput> = (
 
 export type TRPCProcedurePrefetchInfiniteQuery<TInput, TOutput> = (
   queryClient: QueryClient,
-  getInput: (ctx: QueryFunctionContext<QueryKey>) => TInput,
+  initialInput: TInput,
   options?: Omit<
     UseInfiniteQueryOptions<TInput, TRPCError, TOutput, any, any>,
     "queryKey" | "queryFn"

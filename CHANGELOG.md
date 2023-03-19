@@ -1,5 +1,11 @@
 # trpc-react
 
+## 0.1.0-beta.10
+
+### Patch Changes
+
+- Fix infinite query so updating the input triggers a new query
+
 ## 0.1.0-beta.5
 
 ### Patch Changes

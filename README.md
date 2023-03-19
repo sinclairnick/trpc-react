@@ -20,6 +20,10 @@ Features:
 
 - 🧑‍🦯 Agnostic to meta-framework and backend setup
 
+## Motivation
+
+While trying to integrate TRPC into my React app, I 
+
 ## API
 
 The API consists of client-side only hooks and various helpers which are particularly useful for integrating with React Query in an idiomatic way.
