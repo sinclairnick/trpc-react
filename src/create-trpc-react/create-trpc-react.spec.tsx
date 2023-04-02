@@ -1,11 +1,17 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, expectTypeOf, it, vi } from "vitest";
 import { createTestRouter } from "../test/create-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import { FC, PropsWithChildren } from "react";
 import React from "react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { createTRPCTest } from "../test/create-trpc";
-import { createTRPCReactServer } from "./server/create-trpc-react-server";
+import { TRPCError } from "@trpc/server";
+
+type DataType<T> = T extends UseMutationResult<infer TData> ? TData : never;
 
 describe("Create TRPC React", () => {
   const appRouter = createTestRouter();
@@ -64,5 +70,28 @@ describe("Create TRPC React", () => {
     await waitFor(() => result.current.isSuccess);
 
     expect(result.current.data).toEqual({ mutation: true });
+  });
+
+  it("Returns correct mutation type", () => {
+    const { trpc } = createTRPCTest<AppRouter>();
+
+    const mutation = trpc.foo.someMutation.useMutation;
+    type Mut = ReturnType<typeof mutation>;
+    type MutArgs = NonNullable<Parameters<typeof mutation>[0]>;
+
+    expectTypeOf<Mut["data"]>().toEqualTypeOf<number | undefined>();
+    expectTypeOf<Mut["error"]>().toEqualTypeOf<TRPCError | null>();
+    expectTypeOf<
+      Parameters<NonNullable<MutArgs["onSuccess"]>>["0"]
+    >().toEqualTypeOf<number>();
+    expectTypeOf<
+      Parameters<NonNullable<MutArgs["onSuccess"]>>["1"]
+    >().toEqualTypeOf<{
+      name: {
+        first: string;
+        last?: string | undefined;
+      };
+      age: number;
+    }>();
   });
 });

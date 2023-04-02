@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FC, PropsWithChildren } from "react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi, expectTypeOf } from "vitest";
 import { getProcedureMutationHelpers } from "./precedure-mutation";
 import { renderHook, act } from "@testing-library/react-hooks";
 import React from "react";
@@ -24,7 +24,7 @@ describe("Procedure Mutation", () => {
       client: { mutation: mutationMock } as any,
     });
 
-    const { result, waitFor } = renderHook(() => helpers.useMutation(), {
+    const { result, waitFor } = renderHook(() => helpers.useMutation({}), {
       wrapper,
     });
 

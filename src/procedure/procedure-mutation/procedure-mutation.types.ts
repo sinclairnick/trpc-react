@@ -6,7 +6,7 @@ import type { AnyMutationProcedure, TRPCError } from "@trpc/server";
 import { TRPCProcedureFetcherFn } from "../procedure-common/preocedure-common.types";
 
 export type UseTRPCProcedureMutation<TInput, TOutput> = (
-  options?: UseMutationOptions<TInput, TRPCError, TOutput>
+  options?: UseMutationOptions<TOutput, TRPCError, TInput>
 ) => UseMutationResult<TOutput, TRPCError, TInput>;
 
 export type UseTRPCProcedureMutationHelpers<TInput, TOutput> = {
