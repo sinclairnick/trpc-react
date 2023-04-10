@@ -22,11 +22,14 @@ export const getProcedureQueryClientHelpers = (
 
   const $prefetch: TRPCProcedurePrefetchFn<any> = async (
     queryClient,
-    input
+    input,
+    opts
   ) => {
-    return await queryClient.prefetchQuery(proc.$key(input), () =>
-      proc.$query(input)
-    );
+    return queryClient.prefetchQuery({
+      ...opts,
+      queryKey: opts?.queryKey ?? proc.$key(input),
+      queryFn: () => proc.$query(input),
+    });
   };
 
   const $fetchInfinite: TRPCProcedureFetchInfiniteQuery<any, any> = async (
@@ -36,10 +39,8 @@ export const getProcedureQueryClientHelpers = (
   ) => {
     return await queryClient.fetchInfiniteQuery({
       ...opts,
-      queryKey: proc.$infiniteKey(input),
-      queryFn: () => {
-        return proc.$query(input);
-      },
+      queryKey: opts?.queryKey ?? proc.$infiniteKey(input),
+      queryFn: () => proc.$query(input),
     });
   };
 
@@ -47,14 +48,10 @@ export const getProcedureQueryClientHelpers = (
     any,
     any
   > = async (queryClient, input, opts) => {
-    const key = proc.$infiniteKey(input);
-
     return await queryClient.prefetchInfiniteQuery({
       ...opts,
-      queryKey: key,
-      queryFn: () => {
-        return proc.$query(input);
-      },
+      queryKey: opts?.queryKey ?? proc.$infiniteKey(input),
+      queryFn: () => proc.$query(input),
     });
   };
 

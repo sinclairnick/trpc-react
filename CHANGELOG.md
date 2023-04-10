@@ -1,5 +1,11 @@
 # trpc-react
 
+## 0.1.0-beta.12
+
+### Patch Changes
+
+- Make custom mutation and query keys more reliably honoured
+
 ## 0.1.0-beta.11
 
 ### Patch Changes

@@ -15,12 +15,10 @@ export const getProcedureMutationHelpers = (args: {
   const $mutate = (input: any) => client.mutation(path, input);
 
   const useMutation: UseTRPCProcedureMutation<any, any> = (opts) => {
-    const key = getQueryKey(path, undefined);
-
     return _useMutation({
-      mutationKey: key,
-      mutationFn: $mutate,
       ...opts,
+      mutationKey: opts?.mutationKey ?? getQueryKey(path, undefined),
+      mutationFn: $mutate,
     });
   };
 
